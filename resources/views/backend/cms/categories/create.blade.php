@@ -17,13 +17,6 @@
                     <label>Slug</label>
                     <input type="text" name="slug" class="form-control">
                 </div>
-                <div class="form-group">
-                    <label>Type</label>
-                    <select name="type" class="form-control">
-                        <option value="post">Post</option>
-                        <option value="gallery">Gallery</option>
-                    </select>
-                </div>
                 <button class="btn btn-primary">Save</button>
             </form>
         </div>

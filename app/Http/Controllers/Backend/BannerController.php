@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class BannerController extends Controller
 {
@@ -28,7 +29,12 @@ class BannerController extends Controller
             'link' => 'nullable|string',
         ]);
 
-        $path = $request->file('image')->store('banners','public');
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '-' . Str::random(6) . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/banners'), $imageName);
+            $path = 'uploads/banners/' . $imageName;
+        }
         Banner::create([
             'image_path' => $path,
             'title' => $data['title'] ?? null,
@@ -52,9 +58,12 @@ class BannerController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('banners','public');
-            if ($banner->image_path && $banner->image_path !== $path) {
-                Storage::disk('public')->delete($banner->image_path);
+            $image = $request->file('image');
+            $imageName = time() . '-' . Str::random(6) . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/banners'), $imageName);
+            $path = 'uploads/banners/' . $imageName;
+            if ($banner->image_path && file_exists(public_path($banner->image_path))) {
+                unlink(public_path($banner->image_path));
             }
             $banner->image_path = $path;
         }
@@ -67,8 +76,8 @@ class BannerController extends Controller
 
     public function destroy(Banner $banner)
     {
-        if ($banner->image_path) {
-            Storage::disk('public')->delete($banner->image_path);
+        if ($banner->image_path && file_exists(public_path($banner->image_path))) {
+            unlink(public_path($banner->image_path));
         }
         $banner->delete();
         return redirect()->route('admin.banners.index');

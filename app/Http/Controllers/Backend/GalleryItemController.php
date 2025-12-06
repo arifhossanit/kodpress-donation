@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class GalleryItemController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+
     public function index(Gallery $gallery)
     {
         $items = $gallery->items()->orderBy('order')->get();
@@ -25,7 +30,6 @@ class GalleryItemController extends Controller
     {
         $data = $request->validate([
             'title' => 'nullable|string',
-            'category_id' => 'nullable|exists:categories,id',
             'image' => 'required|image',
             'caption' => 'nullable|string',
         ]);
@@ -34,7 +38,6 @@ class GalleryItemController extends Controller
 
         $gallery->items()->create([
             'title' => $data['title'] ?? null,
-            'category_id' => $data['category_id'] ?? null,
             'image_path' => $path,
             'caption' => $data['caption'] ?? null,
         ]);
@@ -51,7 +54,6 @@ class GalleryItemController extends Controller
     {
         $data = $request->validate([
             'title' => 'nullable|string',
-            'category_id' => 'nullable|exists:categories,id',
             'image' => 'nullable|image',
             'caption' => 'nullable|string',
         ]);
@@ -67,7 +69,6 @@ class GalleryItemController extends Controller
         }
 
         $item->title = $data['title'] ?? $item->title;
-        $item->category_id = $data['category_id'] ?? $item->category_id;
         $item->caption = $data['caption'] ?? $item->caption;
         $item->save();
 

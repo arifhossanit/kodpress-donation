@@ -7,13 +7,13 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link {{ request()->routeIs('/') ? 'active' : '' }}" aria-current="page" href="{{ route('/') }}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link {{ request()->routeIs('admissions.apply') ? 'active' : '' }}" href="{{ route('admissions.apply') }}">Admissions</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link {{ request()->routeIs('jobs.index') ? 'active' : '' }}" href="{{ route('jobs.index') }}">Jobs</a>
           </li>
         </ul>
         <span class="navbar-text">

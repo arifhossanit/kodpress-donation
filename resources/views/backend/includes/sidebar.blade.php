@@ -151,6 +151,31 @@
                   </li>
                 </ul>
               </li>
+              <!-- packages -->
+              <li class="nav-small-cap">
+                <i class="mdi mdi-dots-horizontal"></i>
+                <span class="hide-menu">Package & Subscriptions</span>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark"
+                  href="{{ route('admin.packages.index') }}"
+                  aria-expanded="false"
+                >
+                  <i data-feather="package" class="feather-icon"></i>
+                  <span class="hide-menu">Packages</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark"
+                  href="{{ route('admin.subscriptions.index') }}"
+                  aria-expanded="false"
+                >
+                  <i class="mdi mdi-account"></i>
+                  <span class="hide-menu">Subscriptions</span>
+                </a>
+              </li>
             </ul>
           </nav>
           <!-- End Sidebar navigation -->

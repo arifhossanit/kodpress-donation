@@ -31,10 +31,13 @@ class GalleryController extends Controller
         return redirect()->route('admin.galleries.index');
     }
 
+    public function show(Gallery $gallery) {
+        return view('backend.cms.galleries.show', compact('gallery'));
+    }
+
     public function edit(Gallery $gallery)
     {
-        $categories = Category::where('type','gallery')->get();
-        return view('backend.cms.galleries.edit', compact('gallery','categories'));
+        return view('backend.cms.galleries.edit', compact('gallery'));
     }
 
     public function update(Request $request, Gallery $gallery)

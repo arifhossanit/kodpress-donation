@@ -21,28 +21,21 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// CMS admin routes (basic scaffolding)
-// Route::prefix('admin')->name('admin.')->group(function () {
-//     // Protect admin routes with auth middleware
-// })->middleware('auth');
+// Frontend membership routes
+Route::get('/subscriptions', [App\Http\Controllers\Frontend\SubscriptionController::class, 'index'])->name('subscriptions.index');
+Route::get('/subscriptions/{slug}', [App\Http\Controllers\Frontend\SubscriptionController::class, 'show'])->name('subscriptions.show');
+Route::post('/subscriptions/{slug}/subscribe', [App\Http\Controllers\Frontend\SubscriptionController::class, 'subscribe'])->name('subscriptions.subscribe')->middleware('auth');
 
-// Re-register the admin group with middleware (keeps existing structure)
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('categories', App\Http\Controllers\Backend\CategoryController::class);
-    Route::resource('posts', App\Http\Controllers\Backend\PostController::class);
-    Route::resource('galleries', App\Http\Controllers\Backend\GalleryController::class);
-    Route::resource('galleries.items', App\Http\Controllers\Backend\GalleryItemController::class);
-    Route::resource('banners', App\Http\Controllers\Backend\BannerController::class);
-    Route::resource('pages', App\Http\Controllers\Backend\PageController::class);
+// Profile routes
+Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show')->middleware('auth');
+Route::get('/profile/edit', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
+Route::post('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
-    // Page builder: sections and blocks management + reorder endpoints
-    Route::resource('pages.sections', App\Http\Controllers\Backend\PageSectionController::class);
-    Route::resource('sections.blocks', App\Http\Controllers\Backend\PageBlockController::class);
-    Route::post('pages/{page}/sections/reorder', [App\Http\Controllers\Backend\PageSectionController::class, 'reorder'])->name('pages.sections.reorder');
-    Route::post('sections/{section}/blocks/reorder', [App\Http\Controllers\Backend\PageBlockController::class, 'reorder'])->name('sections.blocks.reorder');
+// Gallery routes
+Route::get('/galleries/{slug}', [App\Http\Controllers\Frontend\GalleryController::class, 'show'])->name('galleries.show');
 
-    // Job management
-    Route::resource('job_departments', App\Http\Controllers\Backend\JobDepartmentController::class);
-    Route::resource('job_posts', App\Http\Controllers\Backend\JobPostController::class);
-    Route::resource('job_posts.applications', App\Http\Controllers\Backend\JobApplicationController::class);
-});
+// Admissions frontend routes
+Route::get('/admissions/apply', [App\Http\Controllers\Frontend\AdmissionController::class, 'showForm'])->name('admissions.apply');
+Route::post('/admissions', [App\Http\Controllers\Frontend\AdmissionController::class, 'store'])->name('admissions.store');
+Route::get('/admissions/thankyou', [App\Http\Controllers\Frontend\AdmissionController::class, 'thankyou'])->name('admissions.thankyou');
+

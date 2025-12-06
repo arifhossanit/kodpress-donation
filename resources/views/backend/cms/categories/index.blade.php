@@ -10,14 +10,13 @@
             <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">Create Category</a>
             <table class="table mt-3">
                 <thead>
-                    <tr><th>ID</th><th>Name</th><th>Type</th><th>Actions</th></tr>
+                    <tr><th>ID</th><th>Name</th><th>Actions</th></tr>
                 </thead>
                 <tbody>
                     @foreach($categories as $cat)
                         <tr>
                             <td>{{ $cat->id }}</td>
                             <td>{{ $cat->name }}</td>
-                            <td>{{ $cat->type }}</td>
                             <td>
                                 <a href="{{ route('admin.categories.edit', $cat) }}" class="btn btn-sm btn-secondary">Edit</a>
                             </td>

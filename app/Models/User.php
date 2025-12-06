@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Subscription;
 
 class User extends Authenticatable
 {
@@ -17,11 +18,23 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    // Profile fields moved to users table: phone, address, city, country, bio, avatar_path
     protected $fillable = [
         'name',
         'email',
         'password',
+        'phone',
+        'address',
+        'city',
+        'country',
+        'bio',
+        'avatar_path',
     ];
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

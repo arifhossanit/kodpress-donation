@@ -13,7 +13,10 @@
             <tr>
                 <td>{{ $g->id }}</td>
                 <td>{{ $g->name }}</td>
-                <td><a class="btn btn-sm btn-secondary" href="{{ route('admin.galleries.edit',$g) }}">Edit</a></td>
+                <td>
+                    <a class="btn btn-sm btn-info" href="{{ route('admin.galleries.show',$g) }}">Show</a>
+                    <a class="btn btn-sm btn-secondary" href="{{ route('admin.galleries.edit',$g) }}">Edit</a>
+                </td>
             </tr>
         @endforeach
         </tbody>

@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('gallery_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('gallery_id')->constrained('galleries')->onDelete('cascade');
-            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->string('title')->nullable();
             $table->string('image_path');
             $table->text('caption')->nullable();

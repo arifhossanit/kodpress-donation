@@ -9,7 +9,7 @@ class GalleryItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['gallery_id','category_id','title','image_path','caption','order'];
+    protected $fillable = ['gallery_id','title','image_path','caption','order'];
 
     public function gallery()
     {

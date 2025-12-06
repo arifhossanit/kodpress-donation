@@ -14,7 +14,9 @@ class PageController extends Controller
     {
         $page = Page::with('sections.blocks')->where('slug', 'home')->first();
         if (!$page) {
-            return view('frontend.home'); // fallback to existing static view
+            $galleries = \App\Models\Gallery::with('items')->get();
+            $banners = \App\Models\Banner::where('active', true)->orderBy('order')->get();
+            return view('frontend.home', compact('banners', 'galleries')); // fallback to existing static view
         }
         return view('frontend.page', compact('page'));
     }

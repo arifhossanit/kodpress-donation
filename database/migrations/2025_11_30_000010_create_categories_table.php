@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('type')->default('post'); // post or gallery
             $table->text('description')->nullable();
             $table->timestamps();
         });

@@ -23,8 +23,7 @@ class CategoryController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string',
-            'slug' => 'required|string|unique:categories,slug',
-            'type' => 'required|string',
+            'slug' => 'required|string|unique:categories,slug'
         ]);
         Category::create($data);
         return redirect()->route('admin.categories.index');
@@ -40,7 +39,6 @@ class CategoryController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'slug' => 'required|string|unique:categories,slug,' . $category->id,
-            'type' => 'required|string',
         ]);
         $category->update($data);
         return redirect()->route('admin.categories.index');

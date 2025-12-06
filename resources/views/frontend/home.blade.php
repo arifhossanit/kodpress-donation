@@ -8,49 +8,39 @@
     <div class="carousel-wrapper" style="position:relative;">
       <!-- 6 icon buttons centered above the carousel -->
       <div class="icon-row" style="position:absolute;bottom:50px;left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:20;">
-        <a class="icon-card" href="#">
-          <img src="https://img.icons8.com/fluency/48/000000/donation.png" alt="donation">
-          <div style="font-size:13px;font-weight:600">DONATION</div>
+        <a  class="icon-card" href="#">
+          <img src="{{ asset('frontend/donation.png') }}" alt="donation">
         </a>
         <a class="icon-card" href="#">
-          <img src="https://img.icons8.com/fluency/48/000000/briefcase.png" alt="jobs">
-          <div style="font-size:13px;font-weight:600">HELP TO FIND JOBS</div>
+          <img src="{{ asset('frontend/jobs.png') }}" alt="jobs">
         </a>
         <a class="icon-card" href="#">
-          <img src="https://img.icons8.com/fluency/48/000000/language.png" alt="language">
-          <div style="font-size:13px;font-weight:600">LANGUAGE COURSES</div>
+          <img src="{{ asset('frontend/language-course.png') }}" alt="language">
         </a>
         <a class="icon-card" href="#">
-          <img src="https://img.icons8.com/fluency/48/000000/gavel.png" alt="legal support">
-          <div style="font-size:13px;font-weight:600">LEGAL SUPPORT</div>
+          <img src="{{ asset('frontend/legal-support.png') }}" alt="legal support">
         </a>
         <a class="icon-card" href="#">
-          <img src="https://img.icons8.com/fluency/48/000000/training.png" alt="professional training">
-          <div style="font-size:13px;font-weight:600">PROFESSIONAL TRAINING</div>
+          <img src="{{ asset('frontend/professional-training.png') }}" alt="professional training">
         </a>
         <a class="icon-card" href="#">
-          <img src="https://img.icons8.com/fluency/48/000000/community.png" alt="social development">
-          <div style="font-size:13px;font-weight:600">SOCIAL DEVELOPMENT</div>
+          <img src="{{ asset('frontend/social-development.png') }}" alt="social development">
         </a>
       </div>
 
       <!-- existing carousel -->
       <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          @foreach($banners as $index => $banner)
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}" aria-current="{{ $index == 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
+          @endforeach
         </div>
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="https://placehold.co/1400x480" class="d-block w-100" alt="slide1">
+          @foreach($banners as $index => $banner)
+          <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+            <img src="{{ asset($banner->image_path) }}" class="d-block w-100" alt="slide{{ $index + 1 }}">
           </div>
-          <div class="carousel-item">
-            <img src="https://placehold.co/1400x480" class="d-block w-100" alt="slide2">
-          </div>
-          <div class="carousel-item">
-            <img src="https://placehold.co/1400x480" class="d-block w-100" alt="slide3">
-          </div>
+          @endforeach
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -85,9 +75,47 @@
     </div>
   </section>
 
+
+  <section class="section container" id="gallery">
+    <h3>Our Gallery</h3>
+    <div  class="owl-carousel owl-theme">
+      @forelse($galleries as $gallery)
+        <div class="item card" style="width: 17rem;">
+          @if($gallery->items->first())
+            <img src="{{ asset('storage/'.$gallery->items->first()->image_path) }}" class="card-img-top" alt="gallery image">
+          @else
+            <div class="card-img-top" style="background:#e5e7eb;height:200px;display:flex;align-items:center;justify-content:center;">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="40" height="40" rx="8" fill="#D0D5DD"/>
+                <path d="M14 20L20 14L26 20" stroke="#98A2B3" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="22" cy="16" r="2" fill="#98A2B3"/>
+              </svg>
+            </div>
+          @endif
+          <div class="card-body">
+            <div class="gallery-count">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M1 2C1 1.45 1.45 1 2 1h12c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1H2c-.55 0-1-.45-1-1V2zm2 2v8h10V4H3zm2 5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+              </svg>
+              {{ $gallery->items()->count() }}
+            </div>
+            <h5 class="card-title">{{ $gallery->name }}</h5>
+            <p class="card-text d-inline-block text-truncate" style="max-width: 150px;">{{ $gallery->description }}</p>
+            <a href="{{ route('galleries.show', $gallery->slug) }}" class="text-decoration-none">View Gallery →</a>
+          </div>
+        </div>
+      @empty
+        <div style="text-align:center;padding:40px;color:var(--muted)">
+          <p>No galleries available yet</p>
+        </div>
+      @endforelse
+    </div>
+  </section>
 @endsection
 
 @push('styles')
+<link rel="stylesheet" href="{{ asset('assets/libs/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/libs/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css') }}" />
   <style>
     .welcome{background:#fff;border-radius:8px;padding:22px}
     .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
@@ -96,4 +124,20 @@
     .card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
     .btn{background:var(--primary);color:#fff;padding:8px 12px;border-radius:6px;text-decoration:none;display:inline-block}
   </style>
+@endpush
+
+@push('scripts')
+  <script src="{{ asset('assets/libs/OwlCarousel2-2.3.4/dist/owl.carousel.min.js') }}"></script>
+  <script>
+    $(document).ready(function(){
+      $(".owl-carousel").owlCarousel({
+        loop:true,
+        margin:30,
+        nav:true,
+        dots:true,
+        autoWidth:false,
+        items:4
+      });
+    });
+  </script>
 @endpush

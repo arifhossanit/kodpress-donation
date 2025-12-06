@@ -5,31 +5,34 @@
 @section('content')
 <div class="container-fluid">
     <h3>Add item to: {{ $gallery->name }}</h3>
+    @if($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ route('admin.galleries.items.store', $gallery) }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label>Title</label>
-            <input type="text" name="title" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Category</label>
-            <select name="category_id" class="form-control">
-                <option value="">-- none --</option>
-                @foreach(App\Models\Category::where('type','gallery')->get() as $c)
-                    <option value="{{ $c->id }}">{{ $c->name }}</option>
-                @endforeach
-            </select>
+            <input type="text" name="title" value="{{ old('title') }}" class="form-control @error('title') is-invalid @enderror">
+            @error('title')<span class="invalid-feedback">{{ $message }}</span>@enderror
         </div>
         <div class="form-group">
             <label>Image</label>
-            <input type="file" name="image" accept="image/*" class="form-control" id="imageInput">
+            <input type="file" name="image" accept="image/*" class="form-control @error('image') is-invalid @enderror" id="imageInput">
+            @error('image')<span class="invalid-feedback d-block">{{ $message }}</span>@enderror
             <img id="preview" src="#" style="display:none;max-height:140px;margin-top:8px;" />
         </div>
         <div class="form-group">
             <label>Caption</label>
-            <textarea name="caption" class="form-control" rows="3"></textarea>
+            <textarea name="caption" class="form-control" rows="3">{{ old('caption') }}</textarea>
         </div>
         <button class="btn btn-primary">Save</button>
+        <a href="{{ route('admin.galleries.items.index', $gallery) }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 
