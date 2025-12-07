@@ -12,13 +12,13 @@ class JobPostController extends Controller
     public function index()
     {
         $posts = JobPost::with('department')->orderByDesc('created_at')->get();
-        return view('backend.cms.jobs.posts.index', compact('posts'));
+        return view('backend.jobs.posts.index', compact('posts'));
     }
 
     public function create()
     {
         $departments = JobDepartment::orderBy('name')->get();
-        return view('backend.cms.jobs.posts.create', compact('departments'));
+        return view('backend.jobs.posts.create', compact('departments'));
     }
 
     public function store(Request $request)
@@ -42,7 +42,7 @@ class JobPostController extends Controller
     public function edit(JobPost $job_post)
     {
         $departments = JobDepartment::orderBy('name')->get();
-        return view('backend.cms.jobs.posts.edit', compact('job_post', 'departments'));
+        return view('backend.jobs.posts.edit', compact('job_post', 'departments'));
     }
 
     public function update(Request $request, JobPost $job_post)

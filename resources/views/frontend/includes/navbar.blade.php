@@ -20,7 +20,19 @@
           </li>
         </ul>
         <span class="navbar-text">
-          Navbar text with an inline element
+          @guest
+          <a class="nav-link d-inline {{ request()->routeIs('login') ? 'active' : '' }}" href="{{ route('login') }}">Log In</a>
+          &nbsp;|&nbsp;
+          <a class="nav-link d-inline {{ request()->routeIs('register') ? 'active' : '' }}" href="{{ route('register') }}">Register</a>
+          @else
+          <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+            @csrf
+            <button type="submit" class="sidebar-link waves-effect waves-dark sidebar-link" style="border:none;background:none;padding:0;margin:0;">
+              <i data-feather="log-out" class="feather-icon"></i>
+              <span class="hide-menu"><i class="mdi mdi-logout"></i>Log Out</span>
+            </button>
+          </form>
+          @endguest
         </span>
       </div>
     </div>

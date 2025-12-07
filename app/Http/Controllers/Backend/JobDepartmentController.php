@@ -11,12 +11,12 @@ class JobDepartmentController extends Controller
     public function index()
     {
         $departments = JobDepartment::orderBy('name')->get();
-        return view('backend.cms.jobs.departments.index', compact('departments'));
+        return view('backend.jobs.departments.index', compact('departments'));
     }
 
     public function create()
     {
-        return view('backend.cms.jobs.departments.create');
+        return view('backend.jobs.departments.create');
     }
 
     public function store(Request $request)
@@ -32,7 +32,7 @@ class JobDepartmentController extends Controller
 
     public function edit(JobDepartment $job_department)
     {
-        return view('backend.cms.jobs.departments.edit', compact('job_department'));
+        return view('backend.jobs.departments.edit', compact('job_department'));
     }
 
     public function update(Request $request, JobDepartment $job_department)

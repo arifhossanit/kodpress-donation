@@ -13,11 +13,22 @@
               <li class="sidebar-item">
                 <a
                   class="sidebar-link waves-effect waves-dark"
-                  href="javascript:void(0)"
+                  href="{{ route('admin.dashboard') }}"
                   aria-expanded="false"
                 >
                   <i data-feather="home" class="feather-icon"></i>
                   <span class="hide-menu">Dashboard</span>
+                </a>
+              </li>
+              <!-- admission list-->
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark"
+                  href="{{ route('admin.admissions.index') }}"
+                  aria-expanded="false"
+                >
+                  <i class="mdi mdi-account-multiple"></i>
+                  <span class="hide-menu">Admission List</span>
                 </a>
               </li>
               <!-- CMS Menu -->
@@ -94,12 +105,12 @@
                       <span class="hide-menu"> Job Posts</span>
                     </a>
                   </li>
-                  <li class="sidebar-item">
+                  <!-- <li class="sidebar-item">
                     <a href="{{ route('admin.job_posts.index') }}#applications" class="sidebar-link">
                       <i class="mdi mdi-file-account"></i>
                       <span class="hide-menu"> Applications</span>
                     </a>
-                  </li>
+                  </li> -->
                 </ul>
               </li>
               <!-- packages -->

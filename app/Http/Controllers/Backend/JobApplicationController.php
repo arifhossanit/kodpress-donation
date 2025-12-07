@@ -13,12 +13,12 @@ class JobApplicationController extends Controller
     public function index(JobPost $job_post)
     {
         $applications = $job_post->applications()->orderByDesc('created_at')->get();
-        return view('backend.cms.jobs.applications.index', compact('job_post', 'applications'));
+        return view('backend.jobs.applications.index', compact('job_post', 'applications'));
     }
 
     public function show(JobPost $job_post, JobApplication $application)
     {
-        return view('backend.cms.jobs.applications.show', compact('job_post', 'application'));
+        return view('backend.jobs.applications.show', compact('job_post', 'application'));
     }
 
     public function update(Request $request, JobPost $job_post, JobApplication $application)

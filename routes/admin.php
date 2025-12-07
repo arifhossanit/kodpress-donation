@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 //     // Protect admin routes with auth middleware
 // })->middleware('auth');
 Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', function () {
+        return view('backend.pages.page');
+    })->name('dashboard');
     Route::resource('categories', App\Http\Controllers\Backend\CategoryController::class);
     Route::resource('posts', App\Http\Controllers\Backend\PostController::class);
     Route::resource('galleries', App\Http\Controllers\Backend\GalleryController::class);
