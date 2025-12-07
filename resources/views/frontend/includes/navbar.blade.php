@@ -15,6 +15,9 @@
           <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('jobs.index') ? 'active' : '' }}" href="{{ route('jobs.index') }}">Jobs</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('posts.index') ? 'active' : '' }}" href="{{ route('posts.index') }}">Blog</a>
+          </li>
         </ul>
         <span class="navbar-text">
           Navbar text with an inline element

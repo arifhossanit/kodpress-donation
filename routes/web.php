@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Frontend\PageController as FrontPageController;
 use App\Http\Controllers\Frontend\JobController as FrontJobController;
+use App\Http\Controllers\Frontend\PostController as FrontPostController;
 use App\Http\Controllers\AuthController;
 
 Route::get('/', [FrontPageController::class, 'home'])->name('/');
@@ -13,6 +14,10 @@ Route::get('/pages/{slug}', [FrontPageController::class, 'show'])->name('pages.s
 Route::get('/jobs', [FrontJobController::class, 'index'])->name('jobs.index');
 Route::get('/jobs/{slug}', [FrontJobController::class, 'show'])->name('jobs.show');
 Route::post('/jobs/{slug}/apply', [FrontJobController::class, 'apply'])->name('jobs.apply');
+
+// Frontend blog routes (public)
+Route::get('/blog', [FrontPostController::class, 'index'])->name('posts.index');
+Route::get('/blog/{slug}', [FrontPostController::class, 'show'])->name('posts.show');
 
 // Manual Auth routes
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
