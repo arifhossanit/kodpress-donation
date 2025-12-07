@@ -3,12 +3,11 @@
 @section('title', $post->title)
 
 @section('content')
+<header class="page-header">
+    <h1>{{ $post->title }}</h1>
+    <p><a href="/" style="color: white; text-decoration: none;">Home</a> / <a href="{{ route('posts.index') }}" style="color: white; text-decoration: none;">Blog</a> / {{ $post->title }}</p>
+</header>
 <div class="frontend-page">
-    <header class="page-header">
-        <h1>{{ $post->title }}</h1>
-        <p><a href="/" style="color: white; text-decoration: none;">Home</a> / <a href="{{ route('posts.index') }}" style="color: white; text-decoration: none;">Blog</a> / {{ $post->title }}</p>
-    </header>
-
     <div class="blog-container">
         <div class="row">
             <div class="col-md-8">
@@ -67,12 +66,17 @@
 @push('styles')
 <style>
     .frontend-page {
-        background: #f5f5f5;
         min-height: 100vh;
     }
 
     .page-header {
-        background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+        background: 
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),  /* overlay */
+        url("https://cleantech.geniusocean.net/charity_backend2/assets/images/10007250191715598018.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-overlay: rgba(0, 0, 0, 0.5);
         color: white;
         padding: 60px 20px;
         text-align: center;

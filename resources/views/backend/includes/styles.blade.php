@@ -15,5 +15,11 @@
 
 <!-- for theme setting -->
 <!-- <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}"> -->
-
+    <style>
+      .table-bordered,
+      .table-bordered td,
+      .table-bordered th {
+          border-color: #dddddd !important;
+      }
+    </style>
 @stack('styles')
